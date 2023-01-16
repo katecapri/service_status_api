@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+История состояний
+{% endblock %}
+
+{% block body %}
+<h1>История состояний</h1><br><br>
+<form method="POST">
+    <h3><label>Выберите сервис:</label></h3><br>
+    <p><select name="service_id" style="width: 300px;">
+        <option value="" disabled selected>Сервис</option>
+        {% for service in context.services %}
+        <option value="{{ service.id }}">{{service.name}}</option>
+        {% endfor %}
+    </select>
+        <input type="submit" class="btn btn-secondary" value="Получить историю" style="margin-left: 30px;">
+</form>
+{% if context.error %}
+<p style="color: red;">{{ context.error }}</p>
+{% endif %}
+{% endblock %}

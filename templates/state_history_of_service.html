@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+История состояний сервиса {{ context.service_name }}
+{% endblock %}
+
+{% block body %}
+<h1>История состояний сервиса "{{ context.service_name }}"</h1><br>
+<table style="width: 800px; text-align: center;">
+    <tr>
+        <th style="width: 200px;">Состояние</th>
+        <th style="width: 400px;">Описание</th>
+        <th style="width: 200px;">Время изменения</th>
+    </tr>
+    {% for s_of_s in context.states_of_service %}
+    <tr>
+        {% if s_of_s.state_name == 'Работает'%}
+        <td style="color: green;">Работает</td>
+        {% elif s_of_s.state_name == 'Не работает'%}
+        <td style="color: red;">Не работает</td>
+        {% elif s_of_s.state_name == 'Работает нестабильно' %}
+        <td style="color: orange;">Работает нестабильно</td>
+        {% else %}
+        <td>{{ s_of_s.state_name }}</td>
+        {% endif %}
+        <td>{{ s_of_s.description }}</td>
+        <td>{{ s_of_s.change_time }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<form action="/add_info" style="text-align:center; width: 800px;">
+    <button type="submit" class="btn btn-secondary">Актуализировать</button>
+</form>
+{% endblock %}

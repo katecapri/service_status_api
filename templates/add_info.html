@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Добавить информацию
+{% endblock %}
+
+{% block body %}
+<h1>Добавить информацию</h1><br>
+<form method="POST" style="width: 500px; text-align:center;">
+    <p><label>Выберите сервис из существующих или введите название нового:</label></p>
+    <p><select name="service_id" style="width: 200px;">
+        <option value="" disabled selected>Сервис</option>
+        {% for service in context.services %}
+        <option value="{{ service.id }}">{{service.name}}</option>
+        {% endfor %}
+    </select>
+        <input type="text" name="service_new_name" id="service_new_name" placeholder="Новый сервис"
+               style="height: 25px;"></p>
+    <br>
+    <p><label>Выберите состояние сервиса:</label>
+        <select name="state_id">
+            <option value="" disabled selected>Состояние</option>
+            {% for state in context.states %}
+            <option value="{{ state.id }}">{{state.name}}</option>
+            {% endfor %}
+        </select></p>
+    <br>
+    <textarea name="description" id="description" class="form-control" placeholder="Описание состояния"></textarea><br>
+    <input type="submit" class="btn btn-secondary" value="Отправить">
+</form>
+{% endblock %}
